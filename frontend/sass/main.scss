@@ -1,0 +1,111 @@
+/*COLORS*/
+$background-color-logo: #f3e9f1;
+$violet-main:#8f5bfe;
+$orange-main:#e78b05;
+
+.article-item img {
+    width:200px;
+}
+
+.article-top {
+    display:flex;
+    flex-flow:row wrap;
+}
+
+.article-info {
+    padding-left: 10px;
+    h2 {
+        color:$violet-main;
+        font-weight:600;
+    }
+    .btn {
+        background-color:$orange-main;
+        border-color:lighten($orange-main, 2%);
+        &:hover {
+            background-color:darken($orange-main, 10%);
+            border-color:darken($orange-main, 5%);
+        }
+    }
+}
+
+.header {
+    width:100%;
+    border-radius:0 0px 30px 30px;
+    display:flex;
+    justify-content:center;
+    align-content:center;
+    background-color:#f3e9f1;
+    margin-bottom:20px;
+    img{
+        margin-top:50px;
+    }
+}
+
+nav {
+    display:flex;
+    justify-content:flex-end;
+    align-content:center;
+    align-items:center;
+    height:50px;
+    background-color:#f8f8f8;
+    position:fixed;
+    width:100%;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.15);
+    z-index:5;
+    a {
+        display:block;
+        width:auto;
+        height:auto;
+        margin:0 10px 0 0;
+    }
+    .btn {
+        background-color:$violet-main;
+        border-color:lighten($violet-main, 2%);
+        &:hover {
+            background-color:darken($violet-main, 10%);
+            border-color:darken($violet-main, 5%);
+        }
+    }
+}
+
+main {
+    h1 {
+        width:100%;
+        text-align:center;
+    }
+}
+#commande-confirm {
+    font-weight:700;
+    font-size:3rem;
+    line-height:150%;
+    color:$violet-main;
+    text-align:center;
+}
+
+
+@media screen and (max-width: 768px) {
+    .header img {
+        width:100%;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .article-top {
+        justify-content:center;
+    }
+    .article-info {
+        h2 {
+            width:100%;
+            text-align:center;
+        }
+        h3 {
+            width:100%;
+            text-align:center;
+        }
+        .btn.btn-primary {
+            margin:0 auto;
+            display: block;
+            width: fit-content;
+        }
+    }
+}

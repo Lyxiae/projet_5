@@ -1,0 +1,105 @@
+/*COLORS*/
+.article-item img {
+  width: 200px;
+}
+
+.article-top {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.article-info {
+  padding-left: 10px;
+}
+.article-info h2 {
+  color: #8f5bfe;
+  font-weight: 600;
+}
+.article-info .btn {
+  background-color: #e78b05;
+  border-color: #f19105;
+}
+.article-info .btn:hover {
+  background-color: #b56d04;
+  border-color: #ce7c04;
+}
+
+.header {
+  width: 100%;
+  border-radius: 0 0px 30px 30px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: #f3e9f1;
+  margin-bottom: 20px;
+}
+.header img {
+  margin-top: 50px;
+}
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: #f8f8f8;
+  position: fixed;
+  width: 100%;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+  z-index: 5;
+}
+nav a {
+  display: block;
+  width: auto;
+  height: auto;
+  margin: 0 10px 0 0;
+}
+nav .btn {
+  background-color: #8f5bfe;
+  border-color: #9665fe;
+}
+nav .btn:hover {
+  background-color: #6c28fe;
+  border-color: #7e42fe;
+}
+
+main h1 {
+  width: 100%;
+  text-align: center;
+}
+
+#commande-confirm {
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 150%;
+  color: #8f5bfe;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .header img {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 320px) {
+  .article-top {
+    justify-content: center;
+  }
+
+  .article-info h2 {
+    width: 100%;
+    text-align: center;
+  }
+  .article-info h3 {
+    width: 100%;
+    text-align: center;
+  }
+  .article-info .btn.btn-primary {
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
