@@ -7,6 +7,18 @@ $orange-main:#e78b05;
     width:200px;
 }
 
+.article-item {
+    .article-top.page-produit img {
+        width:50%;
+    }
+}
+
+.page-produit {
+    .article-info {
+        width:50%;
+    }
+}
+
 .article-top {
     display:flex;
     flex-flow:row wrap;
@@ -87,6 +99,17 @@ main {
     .header img {
         width:100%;
     }
+    .article-item {
+        .article-top.page-produit img {
+            width:100%;
+        }
+    }
+    .page-produit {
+        .article-info {
+            width:100%;
+        }
+    }
+    
 }
 
 @media screen and (max-width: 320px) {

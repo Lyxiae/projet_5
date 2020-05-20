@@ -3,6 +3,14 @@
   width: 200px;
 }
 
+.article-item .article-top.page-produit img {
+  width: 50%;
+}
+
+.page-produit .article-info {
+  width: 50%;
+}
+
 .article-top {
   display: flex;
   flex-flow: row wrap;
@@ -79,6 +87,14 @@ main h1 {
 
 @media screen and (max-width: 768px) {
   .header img {
+    width: 100%;
+  }
+
+  .article-item .article-top.page-produit img {
+    width: 100%;
+  }
+
+  .page-produit .article-info {
     width: 100%;
   }
 }

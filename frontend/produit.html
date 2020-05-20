@@ -28,7 +28,9 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script defer src="./js/bootstrap.bundle.min.js"></script>
         <script defer src="./js/bootstrap.min.js"></script>
-        <script defer src="./index.js"></script>
+        <script src="./functions.js"></script>
+
+        <script src="./produit.js"></script>
         
         <title>Orinoco - Boutique en Ligne</title>
     </head>
@@ -44,23 +46,27 @@
             
         </header>
         <main>
-            <section id="page-produit">
+            <section id="page-produit" class="container">
                 <!-- Détails de l'article -->
-                <div id="produit-details" class="container">
+                <div id="produit-details" class="row">
                     
                 </div>
                 <!-- Formulaire de commande -->
-                <form id="command-form">
-                    <label for="teddies-colors">Couleur</label>
-                    <select id="teddies-colors" name="teddies-colors">
-                        <option value="tan">Tan</option>
-                        <option value="chocolate">Chocolate</option>
-                        <option value="black">Black</option>
-                        <option value="white">White</option>
-                    </select>
-                    <label for='quantity'>Quantité :</label>
-                    <input type="number" id="quantity" name="quantity" min="1" max="99" value="1" required>
-                    <input type="submit" value="Ajouter à mon panier">
+                <form id="command-form" class="my-3">
+                    <div class="form-group">
+                        <label for="teddies-colors">Couleur</label>
+                        <select id="teddies-colors" name="teddies-colors">
+                            <option value="tan">Tan</option>
+                            <option value="chocolate">Chocolate</option>
+                            <option value="black">Black</option>
+                            <option value="white">White</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for='quantity'>Quantité :</label>
+                        <input type="number" id="quantity" name="quantity" min="1" max="99" value="1" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" value="Ajouter à mon panier">Ajouter au panier</button>
                 </form>
 
                 <div id="command-recap"></div>
