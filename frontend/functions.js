@@ -39,6 +39,8 @@ function displayProducts(products) {
 
 function displayProduct(product) {
     let productDetails = document.getElementById('produit-details');
+    let selectForm = document.getElementById('teddies-colors');
+    let options = product.colors;
     let html = '';
     html += `<div class="article-item col">`;
     html += `<div class="article-top page-produit"><img src="${product.imageUrl}"/>`;
@@ -48,6 +50,11 @@ function displayProduct(product) {
     html += `<p> <strong>Couleurs : </strong>${product.colors}</p></div></div>`;
     html += `</div>`;
     productDetails.innerHTML = html;
+    let formHtml='';
+    for (let i of options) {
+        formHtml += `<option value="${i}">${i}</option>`;
+    }
+    selectForm.innerHTML = formHtml;
 }
 
 const requestTeddies = () => {
