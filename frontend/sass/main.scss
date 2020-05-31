@@ -94,6 +94,29 @@ main {
     text-align:center;
 }
 
+#cart-list {
+    .row {
+        margin-bottom:1.6rem;
+        background-color:#f8f8f8;
+        padding:1rem 0;
+        .article-item {
+            .article-top.page-produit img {
+                width:auto;
+                height:150px;
+            }
+        }
+    }
+    
+}
+
+a.btn.btn-primary {
+    color:white;
+}
+/*UTILS*/
+
+.hidden {
+    display:none;
+}
 
 @media screen and (max-width: 768px) {
     .header img {
