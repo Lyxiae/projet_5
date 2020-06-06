@@ -1,22 +1,41 @@
-let chosenProducts = JSON.parse(localStorage.getItem('id-product'));
-let productCart = document.getElementById('cart-list');
-let cartContent = ``;
-
-console.log(chosenProducts);
-
-
-console.log(cartContent);
-
-
-
-let result;
-
-for (let product of chosenProducts) {
+for (let product of getCart()) {
     console.log(product);
+
     ajaxGet(path + '/teddies/' + product, (responseText) => {
-        result = JSON.parse(responseText);
-        console.log(result);
-        displayCart(result); 
-        productCart.innerHTML = cartContent;
-    }) 
+        displayCart(JSON.parse(responseText));
+    })
 }
+let products = getCart();
+console.log(products);
+
+async function ajaxPost (contactObject) {
+    let request = new XMLHttpRequest();
+    request.onreadystatechange = function () {
+        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+            console.log(this.status);
+            let json = JSON.parse(request.responseText);
+            document.getElementById('result').innerHTML = json.postData.text;
+        }else{
+            console.log('issue with')
+        }
+    }
+    request.open("POST", path + '/teddies/order');
+    request.setRequestHeader("Content-Type", "application/json");
+    request.send(JSON.stringify(contactObject));
+};
+
+document.getElementById('submit-cart').addEventListener('click', function (event) {
+    event.preventDefault();
+    console.log(products);
+    let contact = {
+        surname: document.getElementById("surname").value,
+        name: document.getElementById("name").value,
+        adress: document.getElementById("adress").value,
+        city: document.getElementById("city").value,
+        email: document.getElementById("email").value,
+        products: products
+    }
+    console.log(contact);
+    console.log(JSON.stringify(contact));
+    ajaxPost(contact);
+});

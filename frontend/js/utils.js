@@ -10,10 +10,6 @@ const quantity = document.getElementById('quantity');
 const addToCart = document.getElementById('addToCart');
 
 
-// QUERY URL PAGE PRODUIT
-const urlParams = new URLSearchParams(window.location.search);
-const myParam = urlParams.get('myParam') ;
-
 // PAGE PANIER
 let shoppingList = [];
 let existingProducts = [];
@@ -37,10 +33,30 @@ async function ajaxGet(url, callback) {
     req.send(null);
 }
 
+/*REQUETE POST*/
+/*
+async function ajaxPost(url, callback) {
+    let req = new XMLHttpRequest();
+    req.open("POST", url);
+    req.onreadystatechange = function(){
+        if(req.status >= 200 && req.status < 400) {
+            //Appelle la fonction callback en lui passant la réponse de la requête
+            callback(req.responseText);
+        } else {
+            console.error(req.status + " " + req.statusText + " " + url);
+        }
+    };
+    req.addEventListener("error", function (){
+        console.error("Erreur réseau avec l'URL " + url);
+    });
+    req.setRequestHeader('Content-Type', 'application/json')
+    req.send(null);
+}*/
+
 /*DISPLAY CART - PANIER*/
 function displayCart (product) {
-    console.log('displaycart');
-    cartContent += `<div class="row">
+    let cartList = document.getElementById('cart-list');
+    cartList.innerHTML += `<div class="row">
     <div class="article-item col">
         <div class="article-top page-produit">
             <img src="${product.imageUrl}"/>
@@ -51,7 +67,6 @@ function displayCart (product) {
         </div>
         </div>
     </div>`;
-    console.log(cartContent);
 }
 
 /*DISPLAY PRODUCTS - INDEX*/
@@ -113,4 +128,15 @@ function getParameterByName(name, url) {
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function cartHasProducts () {
+    return !!window.localStorage.getItem('id-product');
+}
+
+function getCart() {
+    if (cartHasProducts()) {
+        return JSON.parse(window.localStorage.getItem('id-product'));
+    }
+    return [];
 }
