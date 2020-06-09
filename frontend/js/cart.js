@@ -8,6 +8,7 @@ for (let product of getCart()) {
 let products = getCart();
 console.log(products);
 
+/*
 async function ajaxPost (contactObject) {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function () {
@@ -24,7 +25,7 @@ async function ajaxPost (contactObject) {
     request.send(JSON.stringify(contactObject));
     console.log(contactObject);
     request.send(contactObject);
-};
+};*/
 
 
 
@@ -41,5 +42,5 @@ document.getElementById('submit-cart').addEventListener('click', function (event
     }
     console.log(contact);
     console.log(JSON.stringify(contact));
-    ajaxPost(contact);
+    ajaxPost(path + '/teddies/order',(contact));
 });

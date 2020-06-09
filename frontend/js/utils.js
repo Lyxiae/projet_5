@@ -34,14 +34,14 @@ async function ajaxGet(url, callback) {
 }
 
 /*REQUETE POST*/
-/*
-async function ajaxPost(url, callback) {
+
+async function ajaxPost(url, objectData) {
     let req = new XMLHttpRequest();
     req.open("POST", url);
     req.onreadystatechange = function(){
         if(req.status >= 200 && req.status < 400) {
-            //Appelle la fonction callback en lui passant la réponse de la requête
-            callback(req.responseText);
+            console.log(this.status);
+            console.log(objectData);
         } else {
             console.error(req.status + " " + req.statusText + " " + url);
         }
@@ -50,8 +50,8 @@ async function ajaxPost(url, callback) {
         console.error("Erreur réseau avec l'URL " + url);
     });
     req.setRequestHeader('Content-Type', 'application/json')
-    req.send(null);
-}*/
+    req.send(objectData);
+}
 
 /*DISPLAY CART - PANIER*/
 function displayCart (product) {
