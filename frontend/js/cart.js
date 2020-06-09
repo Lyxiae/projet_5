@@ -19,10 +19,14 @@ async function ajaxPost (contactObject) {
             console.log('issue with')
         }
     }
-    request.open("POST", path + '/teddies/order');
+    request.open("POST", path + '/teddies/order', true);
     request.setRequestHeader("Content-Type", "application/json");
     request.send(JSON.stringify(contactObject));
+    console.log(contactObject);
+    request.send(contactObject);
 };
+
+
 
 document.getElementById('submit-cart').addEventListener('click', function (event) {
     event.preventDefault();
