@@ -25,9 +25,9 @@ addToCart.addEventListener('click', function(e){
         alert('Le produit est déjà dans le panier !');
     }else {
         console.log(e.target.getAttribute('data-product-id'));
-    shoppingList.push(e.target.getAttribute('data-product-id'));
-    console.log(shoppingList);
-    window.localStorage.setItem('id-product', JSON.stringify(shoppingList));
+        shoppingList.push(e.target.getAttribute('data-product-id'));
+        console.log(shoppingList);
+        window.localStorage.setItem('id-product', JSON.stringify(shoppingList));
     }
 })
 

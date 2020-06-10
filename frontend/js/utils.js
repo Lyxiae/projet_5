@@ -35,7 +35,7 @@ async function ajaxGet(url, callback) {
 
 /*REQUETE POST*/
 
-async function ajaxPost(url, objectData) {
+/*async function ajaxPost(url, objectData) {
     let req = new XMLHttpRequest();
     req.open("POST", url);
     req.onreadystatechange = function(){
@@ -51,12 +51,30 @@ async function ajaxPost(url, objectData) {
     });
     req.setRequestHeader('Content-Type', 'application/json')
     req.send(objectData);
-}
+}*/
 
 /*DISPLAY CART - PANIER*/
 function displayCart (product) {
     let cartList = document.getElementById('cart-list');
     cartList.innerHTML += `<div class="row">
+    <div class="article-item col">
+        <div class="article-top page-produit">
+            <img src="${product.imageUrl}"/>
+            <div class="article-info">
+                <h2>${product.name}</h2>
+                <h3>${product.price}</h3>
+            </div>
+        </div>
+        </div>
+    </div>`;
+    totalPrice+= product.price;
+    console.log(totalPrice);
+}
+
+/*DISPLAY ORDER - RECAPITULATIF COMMANDE*/
+function displayOrder(product) {
+    let orderRecap = document.getElementById('order-recap');
+    orderRecap.innerHTML += `<div class="row">
     <div class="article-item col">
         <div class="article-top page-produit">
             <img src="${product.imageUrl}"/>

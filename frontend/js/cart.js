@@ -1,46 +1,52 @@
+let totalPrice = 0;
+
 for (let product of getCart()) {
     console.log(product);
 
     ajaxGet(path + '/teddies/' + product, (responseText) => {
         displayCart(JSON.parse(responseText));
+        
     })
 }
 let products = getCart();
 console.log(products);
 
-/*
-async function ajaxPost (contactObject) {
-    let request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-            console.log(this.status);
-            let json = JSON.parse(request.responseText);
-            document.getElementById('result').innerHTML = json.postData.text;
-        }else{
-            console.log('issue with')
+
+async function ajaxPost(contactObject) {
+    var request = new XMLHttpRequest();
+    var url = path + '/teddies/order';
+    console.log(contactObject);
+    request.onreadystatechange = function(){
+        if(this.status >= 200) {
+            let requestResult = JSON.parse(request.response);
+            window.localStorage.setItem('order-id', JSON.stringify(requestResult.orderId));
         }
     }
-    request.open("POST", path + '/teddies/order', true);
-    request.setRequestHeader("Content-Type", "application/json");
+    request.open("POST", url);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTL-8");
     request.send(JSON.stringify(contactObject));
-    console.log(contactObject);
-    request.send(contactObject);
-};*/
-
+    
+    
+}
 
 
 document.getElementById('submit-cart').addEventListener('click', function (event) {
     event.preventDefault();
-    console.log(products);
-    let contact = {
-        surname: document.getElementById("surname").value,
-        name: document.getElementById("name").value,
-        adress: document.getElementById("adress").value,
-        city: document.getElementById("city").value,
-        email: document.getElementById("email").value,
+    ajaxPost({
+        contact: {
+            firstName: document.getElementById("surname").value,
+            lastName: document.getElementById("name").value,
+            address: document.getElementById("adress").value,
+            city: document.getElementById("city").value,
+            email: document.getElementById("email").value,
+        },
         products: products
-    }
-    console.log(contact);
-    console.log(JSON.stringify(contact));
-    ajaxPost(path + '/teddies/order',(contact));
+    })
+    .then(function() {
+        window.localStorage.setItem('total-price', JSON.stringify(totalPrice));
+        window.localStorage.setItem('order-content', JSON.stringify(products));
+        window.setTimeout(function() {
+            window.location = "order.html";}, 2000);
+        
+    })
 });

@@ -86,15 +86,20 @@ main {
         text-align:center;
     }
 }
-#commande-confirm {
+#order-id-number {
     font-weight:700;
-    font-size:3rem;
+    font-size:2.4rem;
     line-height:150%;
     color:$violet-main;
     text-align:center;
 }
 
-#cart-list {
+#total-price {
+    font-weight:700;
+    color:$violet-main;
+}
+
+#cart-list, #order-list {
     .row {
         margin-bottom:1.6rem;
         background-color:#f8f8f8;
@@ -117,7 +122,6 @@ a.btn.btn-primary {
 .hidden {
     display:none;
 }
-
 @media screen and (max-width: 768px) {
     .header img {
         width:100%;
@@ -125,6 +129,7 @@ a.btn.btn-primary {
     .article-item {
         .article-top.page-produit img {
             width:100%;
+            margin:0 auto;
         }
     }
     .page-produit {

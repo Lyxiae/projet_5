@@ -77,20 +77,25 @@ main h1 {
   text-align: center;
 }
 
-#commande-confirm {
+#order-id-number {
   font-weight: 700;
-  font-size: 3rem;
+  font-size: 2.4rem;
   line-height: 150%;
   color: #8f5bfe;
   text-align: center;
 }
 
-#cart-list .row {
+#total-price {
+  font-weight: 700;
+  color: #8f5bfe;
+}
+
+#cart-list .row, #order-list .row {
   margin-bottom: 1.6rem;
   background-color: #f8f8f8;
   padding: 1rem 0;
 }
-#cart-list .row .article-item .article-top.page-produit img {
+#cart-list .row .article-item .article-top.page-produit img, #order-list .row .article-item .article-top.page-produit img {
   width: auto;
   height: 150px;
 }
@@ -111,6 +116,7 @@ a.btn.btn-primary {
 
   .article-item .article-top.page-produit img {
     width: 100%;
+    margin: 0 auto;
   }
 
   .page-produit .article-info {
