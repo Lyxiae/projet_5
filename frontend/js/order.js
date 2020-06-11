@@ -1,5 +1,6 @@
 let orderList = JSON.parse(window.localStorage.getItem('order-content'));
 
+//DISPLAY ORDER
 for (let product of orderList) {
     console.log(product);
     ajaxGet(path + '/teddies/' + product, (responseText) => {
@@ -7,5 +8,6 @@ for (let product of orderList) {
     })
 }
 
+//DISPLAY TOTAL PRICE AND ORDER ID
 document.getElementById('total-price').innerHTML = window.localStorage.getItem('total-price');
-document.getElementById('order-id-number').innerHTML = window.localStorage.getItem('order-id');
+document.getElementById('order-id-number').innerHTML = getParameterByName('id');

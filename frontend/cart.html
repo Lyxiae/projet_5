@@ -52,29 +52,28 @@
                 <form id="order-info">
                     <div class="form-group">
                         <label for='surname'>Nom</label>
-                        <input type="text" class="form-control" id="surname" required/>
+                        <input type="text" class="form-control" id="surname" name="surname" required/>
                     </div>
                     <div class="form-group">
                         <label for='name'>Prénom</label>
-                        <input type="text" class="form-control" id="name" required/>
+                        <input type="text" class="form-control" id="name" name="name" required/>
                     </div>
                     <div class="form-group">
                         <label for='adress'>Adresse</label>
-                        <input type="text" class="form-control" id="adress" required/>
+                        <input type="text" class="form-control" id="adress" name="adress" required/>
                     </div>
                     <div class="form-group">
                         <label for='city'>Ville</label>
-                        <input type="text" class="form-control" id="city" required/>
+                        <input type="text" class="form-control" id="city" name="city" required/>
                     </div>
                     <div class="form-group">
                         <label for='email'>Email</label>
-                        <input type="email" class="form-control" id="email" required/>
+                        <input type="email" class="form-control" id="email" name="email" required/>
                     </div>
                     <div class="form-group">
-                        <a class="btn btn-primary" id="submit-cart" href="commande.html">Valider mon panier</a>
+                        <button type="submit" class="btn btn-primary" id="submit-cart" href="commande.html" disabled>Valider mon panier</button>
                     </div>
                 </form>
-                
                 <div id="result"></div>
             </div>
         </main>

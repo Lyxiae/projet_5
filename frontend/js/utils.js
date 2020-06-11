@@ -9,12 +9,11 @@ const colors = document.getElementById('teddies-colors');
 const quantity = document.getElementById('quantity');
 const addToCart = document.getElementById('addToCart');
 
-
 // PAGE PANIER
 let shoppingList = [];
 let existingProducts = [];
 
-/*REQUETE AJAX*/
+/*REQUETES AJAX*/
 
 async function ajaxGet(url, callback) {
     let req = new XMLHttpRequest();
@@ -33,25 +32,21 @@ async function ajaxGet(url, callback) {
     req.send(null);
 }
 
-/*REQUETE POST*/
-
-/*async function ajaxPost(url, objectData) {
-    let req = new XMLHttpRequest();
-    req.open("POST", url);
-    req.onreadystatechange = function(){
-        if(req.status >= 200 && req.status < 400) {
-            console.log(this.status);
-            console.log(objectData);
-        } else {
-            console.error(req.status + " " + req.statusText + " " + url);
+async function ajaxPost(contactObject) {
+    var request = new XMLHttpRequest();
+    var url = path + '/teddies/order';
+    console.log(contactObject);
+    request.onreadystatechange = function(){
+        if(this.status >= 200) {
+            let requestResult = JSON.parse(request.response);
+            //window.localStorage.setItem('order-id', JSON.stringify(requestResult.orderId));
+            window.location = `order.html?id=${requestResult.orderId}`;
         }
-    };
-    req.addEventListener("error", function (){
-        console.error("Erreur réseau avec l'URL " + url);
-    });
-    req.setRequestHeader('Content-Type', 'application/json')
-    req.send(objectData);
-}*/
+    }
+    request.open("POST", url);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTL-8");
+    request.send(JSON.stringify(contactObject));
+}
 
 /*DISPLAY CART - PANIER*/
 function displayCart (product) {
@@ -136,8 +131,7 @@ function displayProduct(product) {
     addToCart.setAttribute('data-product-id',product._id);
 }
 
-
-
+/*GET ID IN URL*/
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -148,10 +142,12 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+/*CHECK IF CART HAS PRODUCTS*/
 function cartHasProducts () {
     return !!window.localStorage.getItem('id-product');
 }
 
+/*GET CART CONTENT FROM LOCAL STORAGE*/
 function getCart() {
     if (cartHasProducts()) {
         return JSON.parse(window.localStorage.getItem('id-product'));
