@@ -2,7 +2,6 @@ let orderList = JSON.parse(window.localStorage.getItem('order-content'));
 
 //DISPLAY ORDER
 for (let product of orderList) {
-    console.log(product);
     ajaxGet(path + '/teddies/' + product, (responseText) => {
         displayOrder(JSON.parse(responseText));
     })
