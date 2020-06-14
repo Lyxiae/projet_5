@@ -11,7 +11,9 @@ for (let product of getCart()) {
 
 //DISABLE BUTTON IF FORM IS NOT FILLED CORRECTLY
 form.addEventListener("change",() => {
-    document.getElementById('submit-cart').disabled = !form.checkValidity();
+    if (form.checkValidity()) {
+        document.getElementById('submit-cart').classList.remove('disabled');
+    }
 });
 
 //AJAX POST, TOTAL PRICE AND PRODUCT LIST VALIDATION
