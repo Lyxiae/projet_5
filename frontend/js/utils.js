@@ -36,11 +36,13 @@ async function ajaxPost(contactObject) {
     var request = new XMLHttpRequest();
     var url = path + '/teddies/order';
     console.log(contactObject);
-    request.onreadystatechange = function(){
+    request.onreadystatechange = await function(){
         if(this.status >= 200) {
             let requestResult = JSON.parse(request.response);
+
+            return requestResult;
             //window.localStorage.setItem('order-id', JSON.stringify(requestResult.orderId));
-            window.location = `order.html?id=${requestResult.orderId}`;
+            
         }
     }
     request.open("POST", url);
@@ -62,14 +64,22 @@ function displayCart (product) {
         </div>
         </div>
     </div>`;
-    totalPrice+= product.price;
-    console.log(totalPrice);
+    //totalPrice+= product.price;
+    //console.log(totalPrice);
+}
+
+function totalCount() {
+    // Get all product ID
+    // loop over them
+    // fetch each product price based on its ID
+    // On each iteration increment the total
+    // return the total
 }
 
 /*DISPLAY ORDER - RECAPITULATIF COMMANDE*/
-function displayOrder(product) {
-    let orderRecap = document.getElementById('order-recap');
-    orderRecap.innerHTML += `<div class="row">
+function displayProductBase(product, elementId) {
+    document.getElementById(elementId).innerHTML +=
+    `<div class="row">
     <div class="article-item col">
         <div class="article-top page-produit">
             <img src="${product.imageUrl}"/>
