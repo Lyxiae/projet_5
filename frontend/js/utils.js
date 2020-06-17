@@ -13,70 +13,25 @@ const addToCart = document.getElementById('addToCart');
 let shoppingList = [];
 let existingProducts = [];
 
-/*REQUETES AJAX*/
-
-async function ajaxGet(url, callback) {
-    let req = new XMLHttpRequest();
-    req.open("GET", url);
-    req.addEventListener("load", function(){
-        if(req.status >= 200 && req.status < 400) {
-            //Appelle la fonction callback en lui passant la réponse de la requête
-            callback(req.responseText);
-        } else {
-            console.error(req.status + " " + req.statusText + " " + url);
-        }
-    });
-    req.addEventListener("error", function (){
-        console.error("Erreur réseau avec l'URL " + url);
-    });
-    req.send(null);
+/*REQUETE AJAX*/
+function ajax(payload, url, verb) {
+    return new Promise((resolve, reject) => {
+        let req = new XMLHttpRequest();
+        req.open(verb, url);
+        req.addEventListener("load", function() {
+            if(req.status >=200) {
+                resolve(req.responseText);
+            }else{
+                reject(req.statusText);
+            }
+        });
+        req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        req.send(payload);
+    })
+    
 }
 
-async function ajaxPost(contactObject) {
-    var request = new XMLHttpRequest();
-    var url = path + '/teddies/order';
-    console.log(contactObject);
-    request.onreadystatechange = await function(){
-        if(this.status >= 200) {
-            let requestResult = JSON.parse(request.response);
-
-            return requestResult;
-            //window.localStorage.setItem('order-id', JSON.stringify(requestResult.orderId));
-            
-        }
-    }
-    request.open("POST", url);
-    request.setRequestHeader("Content-Type", "application/json;charset=UTL-8");
-    request.send(JSON.stringify(contactObject));
-}
-
-/*DISPLAY CART - PANIER*/
-function displayCart (product) {
-    let cartList = document.getElementById('cart-list');
-    cartList.innerHTML += `<div class="row">
-    <div class="article-item col">
-        <div class="article-top page-produit">
-            <img src="${product.imageUrl}"/>
-            <div class="article-info">
-                <h2>${product.name}</h2>
-                <h3>${product.price}</h3>
-            </div>
-        </div>
-        </div>
-    </div>`;
-    //totalPrice+= product.price;
-    //console.log(totalPrice);
-}
-
-function totalCount() {
-    // Get all product ID
-    // loop over them
-    // fetch each product price based on its ID
-    // On each iteration increment the total
-    // return the total
-}
-
-/*DISPLAY ORDER - RECAPITULATIF COMMANDE*/
+/*DISPLAY PRODUCT BASE - AFFICHAGE EN LISTE*/
 function displayProductBase(product, elementId) {
     document.getElementById(elementId).innerHTML +=
     `<div class="row">

@@ -1,8 +1,9 @@
-ajaxGet(path + '/teddies/' + getParameterByName('id'), (responseText) => {
-    let teddy = JSON.parse(responseText);
+let url = path + '/teddies/' + getParameterByName('id');
+
+ajax({}, url, "GET")
+.then(function(data) {
+    let teddy = JSON.parse(data);
     displayProduct(teddy);
-}) 
-.then(function() {
     addToCart.classList.remove('hidden');
 });
 
