@@ -23,7 +23,7 @@ form.addEventListener("change",() => {
 //AJAX POST, TOTAL PRICE AND PRODUCT LIST VALIDATION
 document.getElementById('order-info').addEventListener('submit', function (event) {
     event.preventDefault();
-    var url = path + '/teddies/order';
+    let url = path + '/teddies/order';
     let payload = JSON.stringify({
         contact: {
             firstName: document.getElementById("surname").value,

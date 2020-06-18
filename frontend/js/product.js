@@ -13,6 +13,7 @@ shoppingList = getCart();
 /*DESACTIVE LE BOUTON D'AJOUT SI LE PRODUIT EST DEJA DANS LE PANIER*/
 if (shoppingList.includes(getParameterByName('id'))) {
     addToCart.setAttribute("disabled", "");
+    addToCart.textContent = "Produit ajouté au panier";
 };
 
 /*RECUPERATION DE L'ID AU SUBMIT DU BOUTON ET AJOUT AU LOCAL STORAGE DE LA SHOPPING LIST*/
@@ -27,6 +28,7 @@ addToCart.addEventListener('click', function(e){
         window.localStorage.setItem('id-product', JSON.stringify(shoppingList));
         addToCart.setAttribute("disabled", "");
     }
+    addToCart.textContent = "Produit ajouté au panier";
 });
 
 

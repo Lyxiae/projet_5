@@ -31,6 +31,18 @@ function ajax(payload, url, verb) {
     
 }
 
+/*DISPLAY ORDER RECAP - AFFICHAGE RECAPITULATIF DE LA COMMANDE*/
+function displayOrderRecap () {
+    for (let product of orderList) {
+        let url = path + "/teddies/" + product;
+        ajax({}, url, "GET")
+        .then(function(data) {
+            displayProductBase(JSON.parse(data), 'order-recap');
+            document.getElementById('total-price').innerHTML = window.localStorage.getItem('total-price');
+            document.getElementById('order-id-number').innerHTML = getParameterByName('id');
+        })
+    }
+}
 /*DISPLAY PRODUCT BASE - AFFICHAGE EN LISTE*/
 function displayProductBase(product, elementId) {
     document.getElementById(elementId).innerHTML +=
@@ -100,7 +112,7 @@ function displayProduct(product) {
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+    let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
         results = regex.exec(url);
     if (!results) return null;
     if (!results[2]) return '';
