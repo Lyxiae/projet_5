@@ -131,3 +131,7 @@ function getCart() {
     }
     return [];
 }
+
+function displayPrice() {
+    document.getElementById('total-price').innerHTML = totalPrice;
+}

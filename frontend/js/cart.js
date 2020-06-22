@@ -10,8 +10,12 @@ for (let product of products) {
         let product = JSON.parse(data);
         displayProductBase(product, 'cart-list');
         totalPrice += product.price;
+        displayPrice();
     })
+    
 }
+
+
 
 //DISABLE BUTTON IF FORM IS NOT FILLED CORRECTLY
 form.addEventListener("change",() => {
