@@ -1,19 +1,18 @@
 // GENERAUX
-const path = 'http://localhost:3000/api';
+const basePath = 'http://localhost:3000/api';
 
 // ELEMENTS HTML
-const commandResult = document.getElementById('command-recap');
-const formId = document.getElementById('command-form');
-const choice = document.getElementById('teddies-choice');
-const colors = document.getElementById('teddies-colors');
-const quantity = document.getElementById('quantity');
 const addToCart = document.getElementById('addToCart');
 
-// PAGE PANIER
-let shoppingList = [];
-let existingProducts = [];
+let productsIds = getCart();
 
-/*REQUETE AJAX*/
+
+/**
+ * 
+ * @param Object payload 
+ * @param String url 
+ * @param String verb 
+ */
 function ajax(payload, url, verb) {
     return new Promise((resolve, reject) => {
         let req = new XMLHttpRequest();
@@ -31,20 +30,13 @@ function ajax(payload, url, verb) {
     
 }
 
-/*DISPLAY ORDER RECAP - AFFICHAGE RECAPITULATIF DE LA COMMANDE*/
-function displayOrderRecap () {
-    for (let product of orderList) {
-        let url = path + "/teddies/" + product;
-        ajax({}, url, "GET")
-        .then(function(data) {
-            displayProductBase(JSON.parse(data), 'order-recap');
-            document.getElementById('total-price').innerHTML = window.localStorage.getItem('total-price');
-            document.getElementById('order-id-number').innerHTML = getParameterByName('id');
-        })
-    }
-}
-/*DISPLAY PRODUCT BASE - AFFICHAGE EN LISTE*/
-function displayProductBase(product, elementId) {
+
+/**
+ * Display the product list, one object at a time
+ * @param Object product 
+ * @param String elementId 
+ */
+function displayProductRow(product, elementId) {
     document.getElementById(elementId).innerHTML +=
     `<div class="row">
     <div class="article-item col">
@@ -59,63 +51,44 @@ function displayProductBase(product, elementId) {
     </div>`;
 }
 
-/*DISPLAY PRODUCTS - INDEX*/
-function displayProducts(products) {
-    let articleList = document.getElementById('article-list');
-    let html = '<div class="row">';
-    for(let product of products) {
-        html += `
-        <div class="article-item px-lg-2 col-sm-6">
-            <div class="article-top">
-                <img src="${product.imageUrl}"/>
-                <div class="article-info">
-                    <h2>${product.name}</h2>
-                    <h3>${product.price}</h3>
-                    <a class="view-teddy btn btn-primary" id="${product._id} button-view" href="product.html?id=${product._id}"> Voir le produit </a>
-                </div>
-            </div>
-            <p>${product.description}</p>
-            <p> <strong>Couleurs : </strong>${product.colors}</p>
-        </div>`;
-    }
-    html += '</div>';
-    articleList.innerHTML = html;
-    
+function fetchCart() {
+    let url = basePath + '/teddies';
+    ajax({}, url, "GET")
+    .then(function(data) {
+        let allProducts = JSON.parse(data);
+        for (let item of allProducts) {
+            if (productsIds.includes(item._id)){
+                displayProductRow(item, 'cart-list');
+                calculatePrice(item);
+            }
+        }
+    })
+    .then(function(){
+        displayPrice();
+    })
 }
 
-/*DISPLAY PRODUCT - PAGE PRODUCT*/
-function displayProduct(product) {
-    let productDetails = document.getElementById('produit-details');
-    let selectForm = document.getElementById('teddies-colors');
-    let options = product.colors;
-    productDetails.innerHTML = `
-    <div class="article-item col">
-        <div class="article-top page-produit">
-            <img src="${product.imageUrl}"/>
-            <div class="article-info">
-                <h2>${product.name}</h2>
-                <h3>${product.price}</h3>
-                <p>${product.description}</p>
-                <p> <strong>Couleurs : </strong>${product.colors}</p>
-            </div>
-        </div>
-    </div>`;
-    let formHtml='';
-    for (let i of options) {
-        formHtml += `<option value="${i}">${i}</option>`;
-    }
-    selectForm.innerHTML = formHtml;
-    addToCart.setAttribute('data-product-id',product._id);
+function calculatePrice(product) {
+    totalPrice += item.price;
 }
 
-/*GET ID IN URL*/
-function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
+
+/*
+    Get parameter in URL
+*/
+function getParameter(name) {
+    let url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
-    let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
+    let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+    let results = regex.exec(url);
+    if (!results) {
+        return null;
+    }
+
+    if (!results[2]) {
+        return '';
+    } 
+
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 

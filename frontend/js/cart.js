@@ -1,19 +1,23 @@
-let totalPrice = 0;
+//let totalPrice = 0;
 const form = document.getElementById('order-info');
-let products = getCart();
+
+//let url = basePath + '/teddies/' + product;
 
 //GET EACH ITEM IN CART TO DISPLAY
-for (let product of products) {
-    let url = path + '/teddies/' + product;
+/*for (let product of products) {
+    let url = basePath + '/teddies/' + product;
     ajax({}, url, "GET")
     .then(function(data) {
         let product = JSON.parse(data);
-        displayProductBase(product, 'cart-list');
+        displayProductRow(product, 'cart-list');
         totalPrice += product.price;
         displayPrice();
     })
     
-}
+}*/
+
+
+fetchCart();
 
 
 
@@ -27,7 +31,7 @@ form.addEventListener("change",() => {
 //AJAX POST, TOTAL PRICE AND PRODUCT LIST VALIDATION
 document.getElementById('order-info').addEventListener('submit', function (event) {
     event.preventDefault();
-    let url = path + '/teddies/order';
+    let url = basePath + '/teddies/order';
     let payload = JSON.stringify({
         contact: {
             firstName: document.getElementById("surname").value,
@@ -36,12 +40,12 @@ document.getElementById('order-info').addEventListener('submit', function (event
             city: document.getElementById("city").value,
             email: document.getElementById("email").value,
         },
-        products: products
+        products: productsIds
     });
     ajax(payload, url, "POST")
     .then(function(data){
         window.localStorage.setItem('total-price', JSON.stringify(totalPrice));
-        window.localStorage.setItem('order-content', JSON.stringify(products));
+        window.localStorage.setItem('order-content', JSON.stringify(productsIds));
         let dataObject = JSON.parse(data);
         window.location = `order.html?id=${dataObject.orderId}`;
     })
