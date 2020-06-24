@@ -1,20 +1,12 @@
-let orderList = JSON.parse(window.localStorage.getItem('order-content'));
-
-//DISPLAY ORDER
-//displayOrderRecap();
-fetchCart();
+loadOrder();
 
 /**
- * Display product list, total price and order id
+ * Loads order page, displays order recap, total price and order id.
  */
-function displayOrderRecap () {
-    for (let product of orderList) {
-        let url = basePath + "/teddies/" + product;
-        ajax({}, url, "GET")
-        .then(function(data) {
-            displayProductRow(JSON.parse(data), 'order-recap');
-            document.getElementById('total-price').innerHTML = window.localStorage.getItem('total-price');
-            document.getElementById('order-id-number').innerHTML = getParameter('id');
-        })
-    }
+async function loadOrder() {
+    let products = await getAllProducts();
+    let productsInCart = getProductsInCart(products);
+    displayRecap(productsInCart);
+    displayTotal(getTotal(productsInCart));
+    document.getElementById('order-id-number').innerHTML = getParameter('id');
 }

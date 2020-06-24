@@ -1,35 +1,31 @@
-//let totalPrice = 0;
-const form = document.getElementById('order-info');
+let form = document.getElementById('order-info');
+let cartProductsIds = getCartProductIds();
 
-//let url = basePath + '/teddies/' + product;
+/**
+ * Loads cart page with products and total price
+ */
+loadCart();
 
-//GET EACH ITEM IN CART TO DISPLAY
-/*for (let product of products) {
-    let url = basePath + '/teddies/' + product;
-    ajax({}, url, "GET")
-    .then(function(data) {
-        let product = JSON.parse(data);
-        displayProductRow(product, 'cart-list');
-        totalPrice += product.price;
-        displayPrice();
-    })
-    
-}*/
+//Form listener to check validity and update submit button accordingly
+form.addEventListener("change", updateSubmitButtonStatus);
 
+//Submit button listener to send order
+form.addEventListener('submit', sendOrder);
 
-fetchCart();
+/**
+ * Loads cart page, displays order recap and total price.
+ */
+async function loadCart() {
+    let products = await getAllProducts();
+    let productsInCart = getProductsInCart(products);
+    displayRecap(productsInCart);
+    displayTotal(getTotal(productsInCart));
+}
 
-
-
-//DISABLE BUTTON IF FORM IS NOT FILLED CORRECTLY
-form.addEventListener("change",() => {
-    if (form.checkValidity()) {
-        document.getElementById('submit-cart').classList.remove('disabled');
-    }
-});
-
-//AJAX POST, TOTAL PRICE AND PRODUCT LIST VALIDATION
-document.getElementById('order-info').addEventListener('submit', function (event) {
+/**
+ * Creates contact object, product list, sends everything with ajax post and redirects to order recap page.
+ */
+function sendOrder() {
     event.preventDefault();
     let url = basePath + '/teddies/order';
     let payload = JSON.stringify({
@@ -40,13 +36,22 @@ document.getElementById('order-info').addEventListener('submit', function (event
             city: document.getElementById("city").value,
             email: document.getElementById("email").value,
         },
-        products: productsIds
+        products: cartProductsIds
     });
     ajax(payload, url, "POST")
     .then(function(data){
-        window.localStorage.setItem('total-price', JSON.stringify(totalPrice));
-        window.localStorage.setItem('order-content', JSON.stringify(productsIds));
         let dataObject = JSON.parse(data);
         window.location = `order.html?id=${dataObject.orderId}`;
     })
-});
+}
+
+/**
+ * Updates submit button depending on form validity.
+ */
+function updateSubmitButtonStatus() {
+    if (form.checkValidity()) {
+        document.getElementById('submit-cart').classList.remove('disabled');
+    } else {
+        document.getElementById('submit-cart').classList.add('disabled');
+    }
+}
