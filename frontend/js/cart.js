@@ -1,5 +1,5 @@
 let form = document.getElementById('order-info');
-let cartProductsIds = getCartProductIds();
+
 
 /**
  * Loads cart page with products and total price
@@ -18,7 +18,7 @@ form.addEventListener('submit', sendOrder);
 async function loadCart() {
     let products = await getAllProducts();
     let productsInCart = getProductsInCart(products);
-    displayRecap(productsInCart);
+    displayCartProducts(productsInCart);
     displayTotal(getTotal(productsInCart));
 }
 
@@ -27,6 +27,7 @@ async function loadCart() {
  */
 function sendOrder() {
     event.preventDefault();
+    let cartProductsIds = getCartProductIds();
     let url = basePath + '/teddies/order';
     let payload = JSON.stringify({
         contact: {

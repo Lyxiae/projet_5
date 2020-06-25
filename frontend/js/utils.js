@@ -35,7 +35,7 @@ function cartHasProducts () {
  * Displays order content in cart and order pages
  * @param Array products 
  */
-function displayRecap(products) {
+function displayCartProducts(products) {
     for (let product of products) {
         document.getElementById('cart-list').innerHTML += displayProduct(product, 'row');
     }
@@ -145,7 +145,6 @@ function getCartProductIds() {
 /**
  * Gets url parameter.
  * @param String name 
- * @return String parameter
  */
 function getParameter(name) {
     let url = window.location.href;

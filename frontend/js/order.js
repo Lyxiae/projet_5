@@ -6,7 +6,7 @@ loadOrder();
 async function loadOrder() {
     let products = await getAllProducts();
     let productsInCart = getProductsInCart(products);
-    displayRecap(productsInCart);
+    displayCartProducts(productsInCart);
     displayTotal(getTotal(productsInCart));
     document.getElementById('order-id-number').innerHTML = getParameter('id');
 }
