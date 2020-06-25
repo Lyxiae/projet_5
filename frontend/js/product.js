@@ -1,6 +1,3 @@
-const addToCartButton = document.getElementById('addToCart');
-let shoppingList = getCartProductIds();
-
 /**
  * Loads product page.
  */
@@ -8,8 +5,10 @@ ajax({}, basePath + '/teddies/' + getParameter('id'), "GET")
 .then(function(data) {
     let teddy = JSON.parse(data);
     displayFullProductDetails(teddy);
-    isProductInCart();
-    enablesAddToCartButton();
+    
+    if (!isProductAlreadyInCart()) {
+        document.getElementById('addToCart').addEventListener('click', addToCart);
+    };
 });
 
 /**
@@ -18,71 +17,73 @@ ajax({}, basePath + '/teddies/' + getParameter('id'), "GET")
  * If not, adds the product in the local storage, disables the button and changes the button label to indicate it has been added.
  * @param Event e 
  */
-function addProductToCart(e) {
+function addToCart(e) {
     e.preventDefault();
-    if (!shoppingList.includes(getParameter('id'))) {
-        storeProduct(e);
-        disableAddButton();
-    }
+
+    storeProduct(e);
+    disableAddButton();
 }
 
 /**
  * Disables the add to cart button.
  */
 function disableAddButton() {
-    addToCartButton.setAttribute("disabled", "");
-    addToCartButton.textContent = "Produit ajouté au panier";
+    document.getElementById('addToCart').setAttribute("disabled", "");
+    document.getElementById('addToCart').textContent = "Produit ajouté au panier";
 }
 
 /**
- * Loads product page with display functions, adds id to add to cart button and shows the button. 
+ * Display product and product options, disables add button if product is already in cart and shows the button. 
  * @param Object product 
  */
 function displayFullProductDetails(product) {
-    let options = product.colors;
+    
     document.getElementById('produit-details').innerHTML = displayProduct(product, 'card');
-    displayProductOptions(options,'teddies-colors');
-    addToCartButton.classList.remove('hidden');
+    document.getElementById('teddies-colors').innerHTML = displayProductOptions(product);
+    if (isProductAlreadyInCart()) {
+        disableAddButton();
+    }
+    document.getElementById('addToCart').classList.remove('hidden');
 }
 
 
 /**
- * Displays product options list as a select form element.
+ * Returns product options list as a select form element.
  * @param Array options 
  * @param String elementId 
  */
-function displayProductOptions(options, elementId) {
+function displayProductOptions(product) {
+    let options = product.colors;
     let formHtml='';
     for (let i of options) {
         formHtml += `<option value="${i}">${i}</option>`;
     }
-    document.getElementById(elementId).innerHTML = formHtml;
+    return formHtml;
 }
 
 /**
- * Enables addToCartButton listener if the product is not in the cart.
+ * Checks if the product is already in the cart.
  */
-function enablesAddToCartButton() {
-    if (!shoppingList.includes(getParameter('id'))) {
-        addToCartButton.addEventListener('click', addProductToCart);
-    };
-}
-/**
- * Checks if the product is already in the cart. If it is, disables the add button on the page and changes the button label.
- */
-function isProductInCart() {
-    if (shoppingList.includes(getParameter('id'))) {
-        disableAddButton();
-    };
+function isProductAlreadyInCart() {
+    if (! getCartProductIds().includes(getParameter('id'))) {
+        return false;
+    }
+
+    return true;
 }
 
 /**
  * Push product ID to shopping list and adds/updates shopping list in the local storage. 
- * @param Button e 
+ * 
  */
-function storeProduct(e){
-    shoppingList.push(getParameter('id'));
-    window.localStorage.setItem('id-product', JSON.stringify(shoppingList));
+function storeProduct(){
+    let cart = getCartProductIds();
+
+    if (! isProductAlreadyInCart()) {
+        cart.push(getParameter('id'));
+        window.localStorage.setItem('id-product', JSON.stringify(cart));
+    }
+    
 }
 
 
