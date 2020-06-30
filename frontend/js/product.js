@@ -15,6 +15,7 @@ ajax({}, basePath + '/teddies/' + getParameter('id'), "GET")
  * Onclick, checks if product is in the cart. 
  * If it is, disables the button and displays an alert. 
  * If not, adds the product in the local storage, disables the button and changes the button label to indicate it has been added.
+ * 
  * @param Event e 
  */
 function addToCart(e) {
@@ -33,7 +34,9 @@ function disableAddButton() {
 }
 
 /**
- * Display product and product options, disables add button if product is already in cart and shows the button. 
+ * Display product and product options, disables add button.
+ * if product is already in cart and shows the button. 
+ * 
  * @param Object product 
  */
 function displayFullProductDetails(product) {
@@ -49,6 +52,7 @@ function displayFullProductDetails(product) {
 
 /**
  * Returns product options list as a select form element.
+ * 
  * @param Array options 
  * @param String elementId 
  */
@@ -58,6 +62,7 @@ function displayProductOptions(product) {
     for (let i of options) {
         formHtml += `<option value="${i}">${i}</option>`;
     }
+
     return formHtml;
 }
 
@@ -74,7 +79,6 @@ function isProductAlreadyInCart() {
 
 /**
  * Push product ID to shopping list and adds/updates shopping list in the local storage. 
- * 
  */
 function storeProduct(){
     let cart = getCartProductIds();

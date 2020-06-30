@@ -3,6 +3,7 @@ const basePath = 'http://localhost:3000/api';
 
 /**
  * Fetch data via ajax.
+ * 
  * @param Object payload 
  * @param String url 
  * @param String verb 
@@ -171,6 +172,7 @@ function getTotal(products) {
     for (let product of products){
         total += product.price;
     }
+    
     return total;
 }
 
